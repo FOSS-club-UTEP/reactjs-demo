@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import Item from "./Item";
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [firstItemCount, setFirstItemCount] = useState(0);
+	const [secondItemCount, setSecondItemCount] = useState(0);
+	const [thirdItemCount, setThirdItemCount] = useState(0);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const firstItem = {
+    name: "Banana",
+    price: 2,
+    count: firstItemCount,
+    setCount: setFirstItemCount,
+  };
+  const secondItem = {
+    name: "Milk",
+    price: 1,
+    count: secondItemCount,
+    setCount: setSecondItemCount,
+  };
+  const thirdItem = {
+    name: "Used Monitor",
+    price: 82.3,
+    count: thirdItemCount,
+    setCount: setThirdItemCount,
+  };
+
+  const items = [firstItem, secondItem, thirdItem]
+
+  const total = items.reduce((acc, item) => acc + item.price * item.count, 0)
+
+	return (
+		<>
+			<h1>Shopping cart!</h1>
+      {items.map((item) => (
+        <Item key={item.name} item={item} />
+      ))}
+      <br />
+      <p>Total: ${total}</p>
+		</>
+	);
 }
 
-export default App
+export default App;
